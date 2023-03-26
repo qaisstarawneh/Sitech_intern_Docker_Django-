@@ -64,17 +64,23 @@ DJANGO_LOGLEVEL=info
 # Step-5 Build Docker images 
 Build postgres image:
 ```
-docker build -f Dockerfile.postgres -t Name:Tag .
+docker build --build-arg DATABASE_USERNAME=Qaiss --build-arg DATABASE_PASSWORD=Qaiss --build-arg DATABASE_NAME=polls -t polls .
 ```
 Build Django app image:
 ```
 docker build -f Dockerfile -t Name:Tag .
 ```
-# Step-6 run Docker images
+
+# Step-6 Create Network:
+
+```
+docker network create Django
+```
+# Step-7 run Docker images
 Run postgres image:
 
 ```
-docker run --env-file env -p 5432:5432 Name:Tag
+docker run --network Django -d -it -p 5432:5432 --hostname psgrs   --name psgrs polls
 ```
 
 Run Django image:
@@ -98,7 +104,7 @@ Enter a username, email address, and password for your user, and after creating 
 docker run --env-file env -p 80:8000 Name:Tag
 ```
 
-# Step-7 Visit localhost/polls
+# Step-8 Visit localhost/polls
 To make sure that your application has been running, visit http://localhost/polls 
 
 
