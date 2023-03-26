@@ -15,13 +15,16 @@ To be honest, I have followed the below tutorial to create a docker file to run 
 # Step-2 Edit dockerfile.postgres
 set your database name and username and password 
      
-      vim dockerfile.postgres
+      vim Dockerfile.postgres
   ```
   output:
-  FROM postgres:latest
-  ENV POSTGRES_USER=Your_username
-  ENV POSTGRES_PASSWORD=Your_password
-  ENV POSTGRES_DB=Your_Database_name
+  FROM postgres
+  ARG DATABASE_USERNAME
+  ARG DATABASE_PASSWORD
+  ARG DATABASE_NAME
+  ENV DATABASE_PASSWORD=$DATABASE_PASSWOR
+  ENV DATABASE_USERNAME=$DATABASE_USERNAME
+  ENV DATABASE_PASSWORD=$DATABASE_PASSWORD
   ``` 
   # Step-3 Edit Database settings in mysite/settings.py 
   Add your changes to the database
@@ -46,14 +49,14 @@ DATABASES = {
 # Step-4 Configuring the Running Environment
 Edit env file 
  ```
-DJANGO_SECRET_KEY=Your_secret_key
+DJANGO_SECRET_KEY=Qaiss
 DEBUG=True
 DJANGO_ALLOWED_HOSTS=*
 DATABASE_ENGINE=postgresql_psycopg2
-DATABASE_NAME=Your_database_name
-DATABASE_USERNAME=Your_database_username
-DATABASE_PASSWORD=Your_database_password 
-DATABASE_HOST=172.17.0.2
+DATABASE_NAME=polls
+DATABASE_USERNAME=Qaiss
+DATABASE_PASSWORD=Qaiss
+DATABASE_HOST=psgrs
 DATABASE_PORT=5432
 DJANGO_LOGLEVEL=info
 ```
@@ -61,11 +64,11 @@ DJANGO_LOGLEVEL=info
 # Step-5 Build Docker images 
 Build postgres image:
 ```
-docker build -f dockerfile.postgres -t Name:Tag .
+docker build -f Dockerfile.postgres -t Name:Tag .
 ```
 Build Django app image:
 ```
-docker build -f dockerfile -t Name:Tag .
+docker build -f Dockerfile -t Name:Tag .
 ```
 # Step-6 run Docker images
 Run postgres image:
