@@ -1,4 +1,4 @@
-# Sitech_intern_Docker_Django-
+
 # Sitech_intern_Docker_Django
 In this task we create Docker files to run Django application and the postgres database in a separated docker containers locally. 
 
